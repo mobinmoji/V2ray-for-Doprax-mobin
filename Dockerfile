@@ -27,5 +27,10 @@ RUN wget -q -O /tmp/v2ray-linux-64.zip https://github.com/v2fly/v2ray-core/relea
     rm -rf /tmp/v2ray-linux-64.zip && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
+
+RUN apk add --no-cache shadow && \
+    useradd -U -u 1000 appuser && \
+    chown -R 1000:1000 /etc/v2ray /usr/local/v2ray /etc/nginx /etc/supervisor
+USER 1000
     
 ENTRYPOINT [ "/usr/local/v2ray/entrypoint.sh" ]
